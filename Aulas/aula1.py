@@ -77,3 +77,23 @@ z = int(input("Digite o valor de Z: "))
 
 result = (w*w+z*z)/((w-z)**2)
 print(result)
+
+
+# 4.3) Escreva um programa que receba o salário de um funcionário (float), e retorne o resultado do novo salário com reajuste de 35%.
+salario = float(input("Digite o seu salário: "))
+salario2 = salario * 1.35
+
+print ("Parabéns, seu novo salário é: {salario2}")
+
+
+# 4.4) Escreva um programa que ache as raízes da equação 2x2 – 18x + 12.
+a = 2
+b = -18
+c = 12
+delta = (b ** 2) -4*a*c
+
+x1 = (-b) + math.sqrt(delta) / (2*a)
+x2 = (-b) - math.sqrt(delta) / (2*a)
+
+print(f"x1 = {x1}")
+print(f"x2 = {x2}")
