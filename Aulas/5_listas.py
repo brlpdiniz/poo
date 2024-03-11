@@ -30,15 +30,4 @@ print(f"A lista em ordem crescente fica: {lêValor}")
 lêValor = L.reverse()
 print(f"A lista em ordem decrescente fica: {lêValor}")
 
-# 6.4 Estrutura de decisão
-# 1) Faça um programa que leia 2 notas de um aluno, calcule a média e imprima aprovado ou reprovado
-# (para ser aprovado a média deve ser no mínimo 6)
-
-nota1 = int(input("Digite a nota 1: "))
-nota2 = int(input("Digite a nota 2: "))
-media = (nota1 + nota2)/2
-
-if media >= 6:
-    print(f"Aprovado! Sua média é {media}")
-else:
-    print(f"Reprovado! Sua média é {media}")
+# 2) Gere uma lista de contendo os múltiplos de 3 entre 1 e 50.
