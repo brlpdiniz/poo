@@ -44,4 +44,5 @@ class Monitor4:
         self.resoluçãoY = y
         self.__log('Alterando resolução')
     
-    
+# Programe a classe Fração (slide)
+
