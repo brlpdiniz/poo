@@ -7,59 +7,11 @@ import random
 
 # função do gerador de palavras aleatórias -> tem que ser classe
 def selecionarPalavra():
-    palavras = ['teste1', 'teste2', 'teste3', 'teste4', 'teste5']
+    palavras = ['teste', 'abacate', 'abacaxi', 'banana', 'maça']
     return random.choice(palavras)
 
 def cenarios_forca(vidasFaltantes):
-    cenarios = [ 
-        '''
-         --------
-         |      |
-         |
-         |
-         |
-         |
-         --------''',
-        '''
-         --------
-         |      |
-         |      O
-         |
-         |
-         |
-         --------''',
-        '''
-         --------
-         |      |
-         |      O
-         |      |
-         |      |
-         |
-         --------''',
-        '''
-         --------
-         |      |
-         |      O
-         |      |/
-         |      |
-         |
-         --------''',
-        '''
-         --------
-         |      |
-         |      O
-         |     /|\\
-         |      |
-         |
-         --------''',
-        '''
-         --------
-         |      |
-         |      O
-         |     /|\\
-         |      |
-         |     /
-         --------''',
+    cenarios = [
         '''
          --------
          |      |
@@ -67,7 +19,55 @@ def cenarios_forca(vidasFaltantes):
          |     /|\\
          |      |
          |     / \\
-         --------'''
+         --------''',
+         '''
+         --------
+         |      |
+         |      O
+         |     /|\\
+         |      |
+         |     /
+         --------''',
+         '''
+         --------
+         |      |
+         |      O
+         |     /|\\
+         |      |
+         |
+         --------''',
+         '''
+         --------
+         |      |
+         |      O
+         |      |/
+         |      |
+         |
+         --------''', 
+        '''
+         --------
+         |      |
+         |      O
+         |      |
+         |      |
+         |
+         --------''',          
+        '''
+         --------
+         |      |
+         |      O
+         |
+         |
+         |
+         --------''',
+         '''
+         --------
+         |      |
+         |
+         |
+         |
+         |
+         --------''',
     ]
     return cenarios[vidasFaltantes]
 
@@ -82,7 +82,7 @@ def main():
     print()
 
     while vidasFaltantes > 0 and '_' in palavraChutada:
-        tentativa = input('Arrisque uma letra ou digite "sair" ').lower()
+        tentativa = input('Arrisque uma letra ou digite "sair: " ').lower()
 
         if tentativa == 'sair':
             print('Saindo do jogo!')
@@ -101,7 +101,7 @@ def main():
             else:
                 vidasFaltantes -= 1
                 print(cenarios_forca(vidasFaltantes))
-                print('Erroooow!')
+                print('Faiô!')
 
         print(' '.join(palavraChutada))
         print()
