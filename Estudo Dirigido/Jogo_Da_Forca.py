@@ -7,11 +7,17 @@ import random
 
     # Classe do gerador de palavras aleatórias
 class GeraPalavras:
-    def __init__(self, palavras):
+    def __init__(self, temas, palavras):
+        self.temas = temas
         self.palavras = palavras
         
         # Criar Temas
         # Fazer alguma lógica aqui de importar arquivo ou gerar classes de temas
+    
+    def selecionarTema(self):
+        self.temas = ['', '', '']
+        return 
+
     def selecionarPalavra(self):
         self.palavras = ['teste', 'abacate', 'abacaxi', 'banana', 'maça']
         return random.choice(self.palavras)
@@ -117,7 +123,7 @@ def main():
         print('Parabéns! Você acertou a palavra!')
 
     elif vidasFaltantes == 0:
-        print('O seu boneco foi enforcado! x_x')
+        print('O seu boneco foi enforcado! (X_X) ☜ (◉▂◉ )')
         print('A palavra era: ', palavra)
 
 if __name__ == '__main__':
