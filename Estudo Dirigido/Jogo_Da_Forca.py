@@ -107,7 +107,7 @@ def main():
             letraChutada.append(tentativa)
 
             if tentativa in palavra:
-                # Enumrate -> guarda a palavra com um ID (de 0 até o final da palavra)
+                # Enumerate -> guarda a palavra com um ID (de 0 até o final da palavra)
                 for i, letra in enumerate(palavra):
                     if letra == tentativa:
                         palavraChutada[i] = letra
@@ -124,6 +124,7 @@ def main():
 
     elif vidasFaltantes == 0:
         print('O seu boneco foi enforcado! (X_X) ☜ (◉▂◉ )')
+        print('╭( ✖_✖ )╮')
         print('A palavra era: ', palavra)
 
 if __name__ == '__main__':
