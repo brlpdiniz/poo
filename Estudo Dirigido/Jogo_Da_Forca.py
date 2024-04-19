@@ -5,10 +5,16 @@
 
 import random
 
-# função do gerador de palavras aleatórias -> tem que ser classe
-def selecionarPalavra():
-    palavras = ['teste', 'abacate', 'abacaxi', 'banana', 'maça']
-    return random.choice(palavras)
+    # Classe do gerador de palavras aleatórias
+class GeraPalavras:
+    def __init__(self, palavras):
+        self.palavras = palavras
+        
+        # Criar Temas
+        # Fazer alguma lógica aqui de importar arquivo ou gerar classes de temas
+    def selecionarPalavra(self):
+        self.palavras = ['teste', 'abacate', 'abacaxi', 'banana', 'maça']
+        return random.choice(self.palavras)
 
 def cenarios_forca(vidasFaltantes):
     cenarios = [
@@ -71,45 +77,48 @@ def cenarios_forca(vidasFaltantes):
     ]
     return cenarios[vidasFaltantes]
 
+# função "main"
 def main():
-    palavra = selecionarPalavra()
+    palavra = GeraPalavras.selecionarPalavra()
     letraChutada = []
     vidasFaltantes = 7
     palavraChutada = ['_'] * len(palavra)
 
-    print('Bem vindo ao Jogo da Forca, vamos começar!')
+    print('Bem vindo ao Jogo da Forca, vamos começar! \n')
     print('_' * len(palavra))
     print()
 
     while vidasFaltantes > 0 and '_' in palavraChutada:
-        tentativa = input('Arrisque uma letra ou digite "sair: " ').lower()
+        tentativa = input('Arrisque uma letra ou digite "sair" -> \n').lower()
 
         if tentativa == 'sair':
             print('Saindo do jogo!')
             break
 
         if tentativa in letraChutada:
-            print('Esta letra já foi chutada, tente novamente!')
+            print('Esta letra já foi chutada, tente novamente! \n')
         else:
             letraChutada.append(tentativa)
 
             if tentativa in palavra:
-                # guarda a palavra com um ID (de 0 até o final da palavra)
+                # Enumrate -> guarda a palavra com um ID (de 0 até o final da palavra)
                 for i, letra in enumerate(palavra):
                     if letra == tentativa:
                         palavraChutada[i] = letra
             else:
                 vidasFaltantes -= 1
                 print(cenarios_forca(vidasFaltantes))
-                print('Faiô!')
+                print('Faiô, tente novamente!')
 
         print(' '.join(palavraChutada))
         print()
 
     if '_' not in palavraChutada:
         print('Parabéns! Você acertou a palavra!')
+
     elif vidasFaltantes == 0:
-        print('O seu boneco foi enforcado! A palavra era: ', palavra)
+        print('O seu boneco foi enforcado! x_x')
+        print('A palavra era: ', palavra)
 
 if __name__ == '__main__':
     main()
