@@ -14,13 +14,30 @@ class GeraPalavras:
     def __init__(self, temas=None, palavras=None):
         self.temas = temas or {}
         self.palavras = palavras or []
-        self.inicializarTemas()
+        self.inicializarTemas(usuarioTema = 0)
 
-    def inicializarTemas(self):
+    def inicializarTemas(self, usuarioTema):
         # Inicializa os temas com palavras
-            self.temas['Animal'] = ['cachorro', 'gato', 'pássaro', 'elefante', 'leão', 'tigre', 'leopardo', 'zebra', 'girafa', 'rinoceronte', 'macaco', 'hipopótamo', 'crocodilo', 'lobo', 'coelho', 'panda', 'peixe', 'pombo', 'golfinho']
-            self.temas['Comida'] = ['abacate', 'abacaxi', 'banana', 'maçã', 'uva', 'melancia', 'laranja', 'pera', 'melão', 'morango', 'pêssego', 'kiwi', 'amora', 'figo', 'caqui', 'pitaya', 'goiaba', 'jabuticaba', 'acerola', 'framboesa']
-            self.temas['Objeto'] = ['cadeira', 'mesa', 'computador', 'telefone', 'livro', 'escova', 'vassoura', 'martelo', 'chave', 'tesoura', 'panela', 'caneca', 'abajur', 'espelho', 'copo', 'pente', 'relógio', 'máquina', 'teclado', 'mouse']
+        self.temas['Animal'] = ['cachorro', 'gato', 'pássaro', 'elefante', 'leão', 'tigre', 'leopardo', 'zebra', 'girafa', 'rinoceronte', 'macaco', 'hipopótamo', 'crocodilo', 'lobo', 'coelho', 'panda', 'peixe', 'pombo', 'golfinho']
+        self.temas['Comida'] = ['abacate', 'abacaxi', 'banana', 'maçã', 'uva', 'melancia', 'laranja', 'pera', 'melão', 'morango', 'pêssego', 'kiwi', 'amora', 'figo', 'caqui', 'pitaya', 'goiaba', 'jabuticaba', 'acerola', 'framboesa']
+        self.temas['Objeto'] = ['cadeira', 'mesa', 'computador', 'telefone', 'livro', 'escova', 'vassoura', 'martelo', 'chave', 'tesoura', 'panela', 'caneca', 'abajur', 'espelho', 'copo', 'pente', 'relógio', 'máquina', 'teclado', 'mouse']
+
+        print('\nBem vindo ao Jogo da Forca, vamos começar! \n')
+        print('Animal = 1')
+        print('Comida = 2')
+        print('Objeto = 3')
+        
+        usuarioTema = input('\nEscolha o tema que gostaria de jogar (1, 2 ou 3): ')
+        if usuarioTema == 1:
+            self.temas = self.temas['Animal']
+        elif usuarioTema == 2:
+            self.temas = self.temas['Comida']
+        elif usuarioTema == 3:
+            self.temas = self.temas['Objeto']
+        else:
+            print('Insira uma opção de tema válida!')
+            (parar o programa aqui)
+            
 
     #  selecionar uma palavra aleatória de um tema específico
     def selecionarPalavra(self, tema=None):
