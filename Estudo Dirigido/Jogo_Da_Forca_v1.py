@@ -4,23 +4,28 @@
 # Fazer o gerador de palavras aleatórias como um classe a parte
 
 import random
+import json
 
-    # Classe do gerador de palavras aleatórias
+    # Classe - Escolhe palavras aleatórias
 class GeraPalavras:
     def __init__(self, temas, palavras):
         self.temas = temas
         self.palavras = palavras
+        self.inicializarTemas()
         
         # Criar Temas
         # Fazer alguma lógica aqui de importar arquivo ou gerar classes de temas
     
-    def selecionarTema(self):
-        self.temas = ['', '', '']
+    def inicializarTemas(self):
+        self.temas['Animal'] = ['cachorro', 'gato', 'pássaro', 'elefante', 'leão']
+        self.temas['Comida'] = ['abacate', 'abacaxi', 'banana', 'maçã', 'uva']
+        self.temas['Objeto'] = ['cadeira', 'mesa', 'computador', 'telefone', 'livro']
         return 
 
-    def selecionarPalavra(self):
-        self.palavras = ['teste', 'abacate', 'abacaxi', 'banana', 'maça']
-        return random.choice(self.palavras)
+    def selecionarPalavra(self, tema=None):
+        if tema is None:
+            tema = random.choice(list(self.temas.keys()))
+        return random.choice(self.temas[tema])
 
 def cenarios_forca(vidasFaltantes):
     cenarios = [
@@ -83,22 +88,61 @@ def cenarios_forca(vidasFaltantes):
     ]
     return cenarios[vidasFaltantes]
 
+# Salvamento do jogo em json
+def salvar_jogo(palavra, letraChutada, vidasFaltantes, palavraChutada):
+    data = {
+        'palavra': palavra,
+        'letraChutada': letraChutada,
+        'vidasFaltantes': vidasFaltantes,
+        'palavraChutada': palavraChutada
+    }
+    with open('salvo.json', 'w') as file:
+        json.dump(data, file)
+
+def carregar_jogo():
+    try:
+        with open('salvo.json', 'r') as file:
+            data = json.load(file)
+            return data['palavra'], data['letraChutada'], data['vidasFaltantes'], data['palavraChutada']
+    except FileNotFoundError:
+        return None, None, None, None
+
+class Ranking:
+    def __init__(self):
+        self.rank = {}
+
+    def atualizar_ranking(self, nome_jogador, tamanho_palavra, acertos, erros):
+        pontuacao = tamanho_palavra * (acertos - erros)
+        if nome_jogador in self.rank:
+            self.rank[nome_jogador] += pontuacao
+        else:
+            self.rank[nome_jogador] = pontuacao
+
+    def exibir_ranking(self):
+        ranking_ordenado = sorted(self.rank.items(), key=lambda x: x[1], reverse=True)
+        print("\nRanking:")
+        for i, (jogador, pontuacao) in enumerate(ranking_ordenado, start=1):
+            print(f"{i}. {jogador}: {pontuacao} pontos")
+
 # função "main"
 def main():
-    palavra = GeraPalavras.selecionarPalavra()
-    letraChutada = []
-    vidasFaltantes = 7
-    palavraChutada = ['_'] * len(palavra)
+    palavra, letraChutada, vidasFaltantes, palavraChutada = carregar_jogo()
+    if palavra is None:
+        palavra = GeraPalavras(None, None).selecionarPalavra()
+        letraChutada = []
+        vidasFaltantes = 7
+        palavraChutada = ['_'] * len(palavra)
 
     print('Bem vindo ao Jogo da Forca, vamos começar! \n')
-    print('_' * len(palavra))
-    print()
+    print(' '.join(palavraChutada))
+    print(cenarios_forca(vidasFaltantes))
 
     while vidasFaltantes > 0 and '_' in palavraChutada:
         tentativa = input('Arrisque uma letra ou digite "sair" -> \n').lower()
 
-        if tentativa == 'sair':
-            print('Saindo do jogo!')
+        if tentativa == 'salvar':
+            salvar_jogo(palavra, letraChutada, vidasFaltantes, palavraChutada)
+            print('Jogo salvo. Até logo!')
             break
 
         if tentativa in letraChutada:
