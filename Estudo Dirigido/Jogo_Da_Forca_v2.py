@@ -26,23 +26,18 @@ class GeraPalavras:
         print('Animal = 1')
         print('Comida = 2')
         print('Objeto = 3')
-        
-        usuarioTema = input('\nEscolha o tema que gostaria de jogar (1, 2 ou 3): ')
-        if usuarioTema == 1:
-            self.temas = self.temas['Animal']
-        elif usuarioTema == 2:
-            self.temas = self.temas['Comida']
-        elif usuarioTema == 3:
-            self.temas = self.temas['Objeto']
-        else:
-            print('Insira uma opção de tema válida!')
-            (parar o programa aqui)
-            
+
+        while True:
+            usuarioTema = int(input('\nEscolha o tema que gostaria de jogar (1, 2 ou 3): '))
+            if usuarioTema in ['1', '2', '3']:
+                self.temas = self.temas['Animal'] if usuarioTema == '1' else self.temas['Comida'] if usuarioTema == '2' else self.temas['Objeto']
+                break
+            else:
+                print('Insira uma opção de tema válida!')   
 
     #  selecionar uma palavra aleatória de um tema específico
-    def selecionarPalavra(self, tema=None):
-        tema = random.choice(list(self.temas.keys()))
-        return random.choice(self.temas[tema])
+def selecionarPalavra(self):
+    return random.choice(self.temas)
 
 # Retorna os bonecos da forca
 def cenarios_forca(vidasFaltantes):
@@ -119,7 +114,7 @@ def salvar_jogo(palavra, letraChutada, vidasFaltantes, palavraChutada):
         'palavraChutada': palavraChutada
     }
     with open('salvo.json', 'w') as file:
-        json.dump(data, file)
+        json.dump(data, file, default=str)
 
 # Carrega o estado do jogo do JSON
 def carregar_jogo():
@@ -132,7 +127,7 @@ def carregar_jogo():
             palavraChutada = data.get('palavraChutada', ['_'] * len(palavra) if palavra else [])
             return palavra, letraChutada, vidasFaltantes, palavraChutada
     except FileNotFoundError:
-        return None, None, None, None
+        return None, [], 7, []
 
 class Ranking:
     def __init__(self):
