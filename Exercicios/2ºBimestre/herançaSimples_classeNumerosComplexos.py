@@ -4,7 +4,7 @@ class NumerosComplexos:
         self.imaginario = imag
     
     def __str__(self):
-        return f'{self.real:.2f} + {self.imag:.2f}'
+        return f'{self.real:.2f} + {self.imaginario:.2f}'
     
     def __neg__(self):
         return -self.
@@ -40,3 +40,7 @@ class NumerosComplexos:
         return
 
     def __angulo__():
+
+#main
+c1 = NumerosComplexos(5,8)
+print(c1)
