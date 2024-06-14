@@ -86,10 +86,6 @@ class Camisa extends Blusa {
 
 - Está correto o que se afirma:
     - a. Somente na afirmativa I
-    - b. Apenas na afirmativa III
-    - c. Apenas nas afirmativas I e II
-    - d. Apenas nas afirmativas II e III
-    - e. Nas afirmativas I, II e III
 
 # -----------------------------------------------------------------------------------------------
 
