@@ -119,8 +119,7 @@ class Camisa extends Blusa {
     -  Adicionar placa
     -  Mostrar modelo placa com melhor performance
 
-## 5 - No main, criar 2 objetos de cada classe e inserir na coleção. Então rodar os
-- métodos:
+## 5 - No main, criar 2 objetos de cada classe e inserir na coleção. Então rodar os métodos:
     -  Informação (para cada objeto)
     -  Calcular performance (para cada objeto)
     -  Melhor performance
