@@ -4,23 +4,14 @@
 - Processo de criação
     * de novas classes (classe derivada)
     * baseado em classes existentes (classe base)
-- A classe derivada herda todas as características da
-classe base, além de incluir características próprias
-adicionais
-- Reutilização de Código
-- Própria classe -> Tudo
-- Classes derivadas -> Público e Protegido!
-- Outros -> Público
+- A classe derivada herda todas as características da classe base, além de incluir características próprias adicionais
+- Própria classe -> Tudo; - Classes derivadas -> Público e Protegido!
 
 #### Ser X Ter
 - Herança (SER)
-    * Um Cliente é uma Pessoa.
-    * Um Funcionário é uma Pessoa.
-    * Uma Conta Corrente é uma Conta.
+    * Um Cliente é uma Pessoa; Um Funcionário é uma Pessoa; Uma Conta Corrente é uma Conta
 - Composição (TER)
-    * Uma Pessoa tem uma Data de Aniversário.
-    * Um Cliente tem uma senha.
-    * Uma Conta tem um saldo.
+    * Uma Pessoa tem uma Data de Aniversário; Um Cliente tem uma senha; Uma Conta tem um saldo
 
 #### Classe Pessoa e Classe Funcionário
 ```
@@ -77,7 +68,6 @@ print( a1.__str__())
 - As subclasses podem ter métodos com o mesmo NOME que a classe pai (sobrecarga)
 - As subclasses podem ter métodos com a mesma ASSINATURA que a classe pai (sobrescrita)
 - Finalidades: Reescrita e Extensão
-
 
 ### Operadores
 - Operadores podem ser sobrecarregados em classes através de métodos especiais conhecidos como métodos mágicos ou métodos especiais.
@@ -143,7 +133,6 @@ for i in range(len(playlist)):
     print('-', playlist[i])
 ```
 
-
 ### Atributos de Classes
 #### Atributo de classe é aquele que é compartilhado por todos os objetos pertencentes àquela classe (Variável ÚNICA dentro da classe)
 #### Método de classe é um método que se comporta como uma função regular, mas pertence a uma classe.
@@ -199,39 +188,157 @@ print( Classe1.metodo_estatico())
 - Método Final
     * Não pode ser sobrescrito pelas suas subclasses
     * Obrigatoriamente herdado
-
 - abc – abstract base class
-    * Este módulo fornece a infraestrutura para definir classes base abstratas
 ```
+
 from abc import ABC, abstractmethod
-class Veículo(ABC):
+import math
+
+class Poligono(ABC):
     @abstractmethod
-    def num_portas(self):
+    def area(self):
         pass
-    def motor(self):
-        print("Flex")
-class Carro(Veículo):
-    def num_portas(self):
-        print("Quatro")
-class Moto(Veículo):
-    def num_portas(self):
-        print("Zero")
-carro1 = Carro()
-carro1.motor()
-carro1.num_portas()
+    @abstractmethod
+    def perimetro(self):
+        pass
+    @abstractmethod
+    def diametro(self):
+        pass
+    def __str__(self):
+        aux = f"Area: {self.area()}"
+        aux += f"\nPerimetro: {self.perimetro()}"
+        aux += f"\nDiametro: {self.diametro()}"
+        return aux
+
+class Quadrado(Poligono):
+    def __init__(self, lado):
+        self.lado = lado
+    def area(self):
+        return self.lado ** 2
+    def perimetro(self):
+        return self.lado * 4
+    def diametro(self):
+        return self.lado * math.sqrt(2)
+q1 = Quadrado(5)
+print(q1)
+
+class Circulo(Poligono):
+    def __init__(self, raio):
+        self.raio = raio
+    def area(self):
+        return (self.raio ** 2) * 3.14
+    def perimetro(self):
+        return self.raio * 2 * 3.14
+    def diametro(self):
+        return self.raio * 2
+C1 = Circulo(5)
+print(C1)
+
+class Retangulo(Poligono):
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
+    def area(self):
+        return self.base * self.altura
+    def perimetro(self):
+        return 2 * (self.base + self.altura)
+    def diametro(self):
+        return math.sqrt(self.base**2 + self.altura**2)
+R1 = Retangulo(5,8)
+print(R1)
+
+class Triangulo(Poligono):
+    def __init__(self, base):
+        self.base = base
+    @abstractmethod
+    def altura(self):
+        pass
+    def area(self):
+        return (self.base * self.altura()) / 2
+    def __str__(self):
+        return super().__str__()
+
+class TrianguloRetangulo(Triangulo):
+    def __init__(self, cateto1, cateto2):
+        super().__init__(base=cateto1)
+        self.cateto1 = cateto1
+        self.cateto2 = cateto2
+    def altura(self):
+        return self.cateto2
+    def perimetro(self):
+        return self.cateto1 + self.cateto2 + self.hipotenusa()
+    def diametro(self):
+        return self.hipotenusa()
+    def hipotenusa(self):
+        return math.sqrt(self.cateto1**2 + self.cateto2**2)
+    def __str__(self):
+        return super().__str__()
+t1 = TrianguloRetangulo(3, 4)
+print(t1)
 ```
-
-
 
 ### Herança Múltipla
-
-
-
-
-
+- Um objeto pode conter “MUITOS” outros por composição; Um objeto quer ser “muitos” outros
+- Algorítmo Diamante - ordem de resolução de
+métodos
+```
+class Terreste(object):
+    def __init__(self, velocidade=100):
+        self.se_move_em_terra = True
+        self.velocidade_em_terra = velocidade
+    def __str__(self):
+        aux = '\nse_move_em_terra = '
+        aux += str(self.se_move_em_terra)
+        aux += '\nvelocidade_em_terra = '
+        aux += str(self.velocidade_em_terra)
+        return aux
+class Aquatico(object):
+    def __init__(self, velocidade=5):
+        self.se_move_na_agua = True
+        self.velocidade_agua = velocidade
+    def __str__(self):
+        aux = '\nse_move_na_água = '
+        aux += str(self.se_move_na_agua)
+        aux += '\nvelocidade_agua = '
+        aux += str(self.velocidade_agua)
+        return aux
+class Carro(Terreste):
+    def __init__(self, veloc=120, pistoes=4):
+        self.rodas = 4
+        self.pistoes = pistoes
+        Terreste.__init__(self, veloc)
+    def __str__(self):
+        aux = '\nrodas = ' + str(self.rodas)
+        aux += '\npistões = ' + str(self.pistoes)
+        aux += super().__str__()
+        return aux
+class Barco(Aquatico):
+    def __init__(self, veloc=6, helices=1):
+        self.helices = helices
+        Aquatico.__init__(self, veloc)
+    def __str__(self):
+        aux = '\nhélices = ' + str(self.helices)
+        aux += super().__str__()
+        return aux
+class Anfibio(Carro, Barco):
+    def __init__(self, vt=80, va=4, pi=6, he=2):
+        Carro.__init__(self, veloc=vt, pistoes=pi)
+        Barco.__init__(self, veloc=va, helices=he)   
+    def __str__(self):
+        aux = Carro.__str__(self)
+        aux += Barco.__str__(self)
+        return aux
+anf1 = Anfibio()
+print(anf1)
+```
 
 ### Interfaces
-
+- É um tipo de herança “fraca”.
+- Somente é permitida a especificação de:
+    * Constantes públicas e Métodos públicos e abstratos
+- São proibidos:
+    * Atributos e Métodos privados e protegidos
+- Definem um comportamento -> Praticamente um “decorador”
 
 
 
@@ -242,10 +349,35 @@ carro1.num_portas()
 
 
 
-
+```
+class Funcionario:
+    def trabalhar(self):
+    pass
+class Gerente(Funcionario):
+    def trabalhar(self):
+    return "Gerente está gerenciando"
+class Estagiario(Funcionario):
+    def trabalhar(self):
+    return "Estagiario está aprendendo"
+def fazer_trabalho(funcionario):
+    print(funcionario.trabalhar())
+# Testando as classes
+g = Gerente(); e = Estagiario()
+fazer_trabalho(g); fazer_trabalho(e)
+```
 
 ### Singleton
 
 
 
 
+```
+class Singleton:
+    _instance = None
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+# main -> s1 = Singleton(); s2 = Singleton()
+print(s1 is s2) # True
+```

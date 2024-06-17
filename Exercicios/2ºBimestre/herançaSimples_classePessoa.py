@@ -32,4 +32,4 @@ class Professor(Funcionário):
  
 # main
 f1 = Funcionário('Josias', 26, 3000)
-p1 = Professor('Malaquias', 56, 500
+p1 = Professor('Malaquias', 56, 500)
